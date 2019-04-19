@@ -3,42 +3,43 @@
 {% block field_input %}
 <select id="{{ field.uuid }}" class="ui-widget ui-widget-content ui-state-default ui-corner-all dynamicforms-inputs
         {{ DYNAMICFORMS.select2_form_field_class }}" name="{{ field.name }}"
-        {% if field.read_only %}disabled{% endif %}
+        {% if field.read_only %}disabled{% endif %} style="width: 100%"
   >
-  {% if field.allow_null or field.allow_blank %}
-    <option value="" {% if not field.value %}selected{% endif %}>{{ field.null_choice_text }}</option>
-  {% endif %}
-  {% iter_options_bound field as iter_options %}
-  {% for select in iter_options %}
-    {% if select.start_option_group %}
-      <optgroup label="{{ select.label }}">
-    {% elif select.end_option_group %}
-      </optgroup>
-    {% elif select.value is not None %}
-      {% if not field.url_reverse or select.value|as_string == field.value|as_string %}
-      <option value="{{ select.value }}" {% if select.value|as_string == field.value|as_string %}selected{% endif %} {% if select.disabled %}disabled{% endif %}>{{ select.display_text }}</option>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+{#  {% if field.allow_null or field.allow_blank %}#}
+{#    <option value="" {% if not field.value %}selected{% endif %}>{{ field.null_choice_text }}</option>#}
+{#  {% endif %}#}
+{#  {% iter_options_bound field as iter_options %}#}
+{#  {% for select in iter_options %}#}
+{#    {% if select.start_option_group %}#}
+{#      <optgroup label="{{ select.label }}">#}
+{#    {% elif select.end_option_group %}#}
+{#      </optgroup>#}
+{#    {% elif select.value is not None %}#}
+{#      {% if not field.url_reverse or select.value|as_string == field.value|as_string %}#}
+{#      <option value="{{ select.value }}" {% if select.value|as_string == field.value|as_string %}selected{% endif %} {% if select.disabled %}disabled{% endif %}>{{ select.display_text }}</option>#}
+{#      {% endif %}#}
+{#    {% endif %}#}
+{#  {% endfor %}#}
 </select>
 <script type="application/javascript">
 {% if DYNAMICFORMS.use_select2 %}
   window.setTimeout(function() {
     $("#{{ field.uuid }}").select2({
-      {% if field.url_reverse %}
+{#      {% if field.url_reverse %}#}
       ajax: {
-        url: '{% url field.url_reverse format='json' %}{{ field.additional_parameters_urlencoded }}',
+        url: 'http://dummy.restapiexample.com/api/v1/employees',
         dataType: 'json',
         data: function(params) {
-          return { '{{ field.query_field }}': params.term };
+          return {1: 'aa', 2: 'bb'};
         },
         processResults: function (data) {
+            console.log(data);
           var results = data.results ? data.results : data;  //data is paginated (or it isn't)
           return {
             results: $.map(results, function (item) {
               return {
-                id: item.choice_id,
-                text: item.choice_text,
+                id: item.id,
+                text: item.employee_name,
               }
             })
           };
@@ -46,12 +47,14 @@
       },
       // Disables ajax request on dropdown opening
       minimumInputLength: 1,
-      {% endif %}
-      {% if field.placeholder %}
-      placeholder: "{{ field.placeholder }}",
+{#      {% endif %}#}
+{#    "{{ field.placeholder }}"#}
+{#    { value|default:"nothing" }}#}
+      {% if field.placeholder or field.url_reverse or True %}
+      placeholder: "{{ field.placeholder|default:'--------' }}",
       {% endif %}
       // Attaches select2 to its form parent and enables input field (in dialog)
-      dropdownParent: $('#{{ style.serializer.uuid }}').parent().parent()
+      dropdownParent: $('#{{ style.serializer.uuid }}').parent().parent(),
     });
   }, 1);
 {% else %}

@@ -136,7 +136,7 @@ def get_settings():
     :return: Settings class
     """
     df = Struct(
-        template=DYNAMICFORMS_BOOTSTRAP,
+        template=DYNAMICFORMS_JQUERY_UI,
     )
     df = df.clone(**getattr(s, 'DYNAMICFORMS', {}))
     template = df.template

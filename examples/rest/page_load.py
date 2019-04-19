@@ -14,7 +14,8 @@ class PageLoadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PageLoad
-        exclude = ()
+        exclude = ('description',)
+        # exclude = ()
 
 
 class PageLoadViewSet(viewsets.ModelViewSet):
