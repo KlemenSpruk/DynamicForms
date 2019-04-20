@@ -30,10 +30,6 @@
     border-spacing: .4em;
   }
 
-  .ui-dialog .ui-state-error {
-    padding: .3em;
-  }
-
   .ui-error-container {
     margin-bottom: .8em;
   }
@@ -97,24 +93,42 @@
     opacity: .5;
   }
 
-  input[type=number] {
-    max-width: 8em;
+  form .dynamicforms-label {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 48%;
   }
 
-  .dynamicforms-label {
-      display: table-cell;
+  .dynamicforms-input-wrapper {
+      flex: 0 0 48%;
+      flex-direction: column;
   }
 
   .dynamicforms-table-row {
-    display: table-row;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: .1em .1em .8em .1em;
+  }
+
+  .dynamicforms-form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: .1em;
+    width: 50%;
+  }
+
+  .dynamicforms-inputs {
+      width: 100%;
   }
 
   .dynamicforms-filterrow label, .dynamicforms-filterrow span[id*="help-"] {
     display: none !important;
   }
 
-  .dynamicforms-inputs {
-      width: 100%;
+  .dynamicforms-filterrow .dynamicforms-table-row {
+      margin-bottom: 0;
   }
 
   .dynamicforms-table-col {
@@ -123,5 +137,28 @@
 
   .dynamicforms-filterrow {
       height: 2.2em;
+  }
+
+  .dynamicforms-multi-col-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      height: 20em;
+  }
+
+  .row {
+      {#max-width: 50%;#}
+      margin: .2em;
+  }
+
+  table .dynamicforms-input-wrapper {
+      flex: 0 0 98%;
+  }
+
+  .dynamicforms-field-error-message {
+      display: block;
+      max-width: 30em;
+      word-break: break-word;
   }
 </style>

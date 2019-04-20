@@ -6,25 +6,34 @@
 
   {% block field_input_label %}
     {% if field.label %}
-      <label id="label-{{ field.uuid }}" {% if style.hide_label %}class="ui-helper-hidden"{% endif %} class="dynamicforms-label">
+        <div class="dynamicforms-label">
+      <label id="label-{{ field.uuid }}" {% if style.hide_label %}class="ui-helper-hidden"{% endif %}>
         {{ field.label }}
       </label>
+
+        {% if field.help_text %}
+    <span id="help-{{ field.uuid }}" class="help-block">{{ field.help_text|safe }}</span>
+  {% endif %}
+
+        </div>
     {% endif %}
 
-    <div>
-    {% block field_input %}{% endblock %}
-    </div>
-  {% endblock %}
 
-  {% if field.errors %}
+    <div class="dynamicforms-input-wrapper">
+    {% block field_input %}{% endblock %}
+    {% if field.errors %}
+        <div>
     {% for error in field.errors %}
       <span class="ui-error-span dynamicforms-field-error-message">{{ error }}</span>
     {% endfor %}
+        </div>
   {% endif %}
+    </div>
+  {% endblock %}
 
-  {% if field.help_text %}
-    <span id="help-{{ field.uuid }}" class="help-block">{{ field.help_text|safe }}</span>
-  {% endif %}
+
+
+
 </div>
 <script type="application/javascript">
   {% block field_onchange %}$('#{{ field.uuid }}').on('change', function () { dynamicforms.fieldChange('{{ field.uuid }}', 'final'); });{% endblock %}

@@ -16,7 +16,9 @@
   {% endif %}
 
   {% csrf_token %}
+    <div>
   {% render_form serializer %}
+    </div>
     </fieldset>
   </div>
   {% if df_render_type != 'dialog' %}

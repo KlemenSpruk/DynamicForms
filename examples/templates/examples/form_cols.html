@@ -7,15 +7,17 @@
 {% endif %}
 
 {% block form_inner %}
+    <div class="dynamicforms-multi-col-form">
   {% for field in form %}
     {% if forloop.counter|add:1|divisibleby:2 or forloop.first %}
-    <div class="row dynamicforms-table-row">
+    <div class="row">
     {% endif %}
-      <div class="col-6 col-xs-6 dynamicforms-table-col">
+      <div class="col-6 col-xs-6">
         {% render_field field style=style %}
       </div>
     {% if forloop.counter|divisibleby:2 or forloop.last %}
     </div>
     {% endif %}
   {% endfor %}
+    </div>
 {% endblock %}
